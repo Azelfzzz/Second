@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Second</string>
+    <string name="hello">happy birthday</string>
+    <string name="btn_login">writer：Azelf</string>
+    <string name="btn_regester">back</string>
+    <string name="button">delete</string>
+    <string name="inp1">身高(米)</string>
+    <string name="inp2">体重(千克)</string>
+</resources>
