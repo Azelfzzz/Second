@@ -17,9 +17,7 @@ public class ScoreCount extends AppCompatActivity {
         setContentView(R.layout.activity_score_count);
 
     }
-    public void click(View btn){
-        TextView ShowA = findViewById(R.id.ScoreA);
-        TextView ShowB = findViewById(R.id.ScoreB);
+    public void clickA(View btn){
         Log.i(TAG, "click: ");
         if(btn.getId()==R.id.btn1){
             scoreA +=1;
@@ -30,7 +28,11 @@ public class ScoreCount extends AppCompatActivity {
         else if(btn.getId()==R.id.btn3){
             scoreA +=3;
         }
-        else if(btn.getId()==R.id.btn4){
+        show();
+    }
+    public void clickB(View btn){
+        Log.i(TAG, "click: ");
+        if(btn.getId()==R.id.btn4){
             scoreB +=1;
         }
         else if(btn.getId()==R.id.btn5){
@@ -39,11 +41,19 @@ public class ScoreCount extends AppCompatActivity {
         else if(btn.getId()==R.id.btn6){
             scoreB +=3;
         }
-        else if(btn.getId()==R.id.btn7){
+        show();
+    }
+    public void reclick(View btn){
+        if(btn.getId()==R.id.btn7){
             scoreA =0;
             scoreB =0;
-
         }
+        show();
+    }
+    public void show(){
+        Log.i(TAG, "click: ");
+        TextView ShowA = findViewById(R.id.ScoreA);
+        TextView ShowB = findViewById(R.id.ScoreB);
         ShowA.setText(String.valueOf(scoreA));
         ShowB.setText(String.valueOf(scoreB));
     }
