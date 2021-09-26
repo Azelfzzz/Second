@@ -1,5 +1,6 @@
 package com.swufestu.second;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,5 +57,10 @@ public class ScoreCount extends AppCompatActivity {
         TextView ShowB = findViewById(R.id.ScoreB);
         ShowA.setText(String.valueOf(scoreA));
         ShowB.setText(String.valueOf(scoreB));
+    }
+    public void open(View v){
+        Intent first = new Intent(this,RMBchange.class);
+        first.putExtra("first111",scoreA);
+        startActivity(first);
     }
 }

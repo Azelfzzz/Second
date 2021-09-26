@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RMBchange">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:orientation="vertical"
+        android:padding="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/inputRMB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:hint="@string/inputRMB"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/ResultofChange"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="@string/result"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/dollar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:onClick="DollarClick"
+            android:text="@string/dollar" />
+
+        <Button
+            android:id="@+id/euro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:onClick="DollarClick"
+            android:text="@string/euro" />
+
+        <Button
+            android:id="@+id/jpn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:onClick="DollarClick"
+            android:text="@string/jpny" />
+
+        <Button
+            android:id="@+id/config"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:onClick="config"
+            android:text="CONFIG" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

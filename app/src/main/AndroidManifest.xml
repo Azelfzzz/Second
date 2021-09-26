@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Second">
         <activity
+            android:name=".changerate"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RMBchange"
+            android:exported="true" />
+        <activity
             android:name=".ScoreCount"
             android:exported="true" />
         <activity
