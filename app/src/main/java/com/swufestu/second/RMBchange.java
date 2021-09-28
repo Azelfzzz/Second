@@ -3,11 +3,14 @@ package com.swufestu.second;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -56,6 +59,10 @@ public class RMBchange extends AppCompatActivity {
 
     }
     public void config(View btn){
+        openConfig();
+    }
+
+    public void openConfig(){
         Intent config = new Intent(this,changerate.class);
         Bundle bdl = new Bundle();
         /*config.putExtra("dollar_rate",dollar_rate);
@@ -70,6 +77,20 @@ public class RMBchange extends AppCompatActivity {
         config.putExtras(bdl);
         //startActivity(config);
         startActivityForResult(config,1);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mune1,menu);
+        return true;
+    }
+    //处理菜单按键
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.menuset){
+            openConfig();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
