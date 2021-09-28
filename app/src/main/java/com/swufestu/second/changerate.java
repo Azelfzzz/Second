@@ -1,6 +1,8 @@
 package com.swufestu.second;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -29,6 +31,7 @@ public class changerate extends AppCompatActivity {
         jny_rate.setText(String.valueOf(jpn2));
     }
     public void save(View btn){
+
         Intent save = new Intent(this,RMBchange.class);
 
         float rateccc1 =Float.parseFloat(dollar_rate.getText().toString());
@@ -38,6 +41,12 @@ public class changerate extends AppCompatActivity {
         /*save.putExtra("dollar_rate_c",rateccc1);
         save.putExtra("euro_rate_c",rateccc2);
         save.putExtra("jpn_rate_c",rateccc3);*/
+        SharedPreferences sp = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putFloat("dollar_rate",rateccc1);
+        editor.putFloat("euro_rate",rateccc2);
+        editor.putFloat("jpn_rate",rateccc3);
+        editor.apply();
 
         Bundle bundle = new Bundle();
         bundle.putFloat("dollar_rate_c",rateccc1);
