@@ -15,12 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/rate1"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="TextView" />
-
         <EditText
             android:id="@+id/change1"
             android:layout_width="match_parent"
@@ -29,14 +23,8 @@
             android:layout_marginTop="10dp"
             android:textSize="20dp"
             android:gravity="center"
-            android:inputType="textPersonName"
+            android:inputType="numberDecimal"
             android:hint="@string/dollar" />
-
-        <TextView
-            android:id="@+id/rate2"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="TextView" />
 
         <EditText
             android:id="@+id/change2"
@@ -46,14 +34,8 @@
             android:layout_marginTop="10dp"
             android:textSize="20dp"
             android:gravity="center"
-            android:inputType="textPersonName"
+            android:inputType="numberDecimal"
             android:hint="@string/euro" />
-
-        <TextView
-            android:id="@+id/rate3"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="TextView" />
 
         <EditText
             android:id="@+id/change3"
@@ -63,7 +45,7 @@
             android:layout_marginTop="10dp"
             android:textSize="20dp"
             android:gravity="center"
-            android:inputType="textPersonName"
+            android:inputType="numberDecimal"
             android:hint="@string/jpny" />
 
         <Button
