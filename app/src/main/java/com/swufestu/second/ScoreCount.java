@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ScoreCount extends AppCompatActivity {
@@ -62,5 +63,18 @@ public class ScoreCount extends AppCompatActivity {
         Intent first = new Intent(this,RMBchange.class);
         first.putExtra("first111",scoreA);
         startActivity(first);
+    }
+    @Override//保存
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("scoreA",scoreA);
+        outState.putInt("scoreB",scoreB);
+    }
+
+    @Override//还原
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        scoreA = savedInstanceState.getInt("scoreA",0);
+        scoreB = savedInstanceState.getInt("scoreB",0);
     }
 }

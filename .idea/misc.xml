@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProject/Second/app/src/main/res/layout-land/activity_rmbchange.xml" value="0.176" />
+        <entry key="..\:/AndroidProject/Second/app/src/main/res/layout-land/activity_score_count.xml" value="0.2" />
         <entry key="..\:/AndroidProject/Second/app/src/main/res/layout/activity_changerate.xml" value="0.16802536231884058" />
         <entry key="..\:/AndroidProject/Second/app/src/main/res/layout/activity_main.xml" value="0.20199275362318841" />
         <entry key="..\:/AndroidProject/Second/app/src/main/res/layout/activity_rmbchange.xml" value="0.2" />

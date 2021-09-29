@@ -19,6 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +31,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RMBchange extends AppCompatActivity implements Runnable{
     private static final String TAG = "activity_rmbchange";
@@ -36,28 +43,23 @@ public class RMBchange extends AppCompatActivity implements Runnable{
     TextView result;
     EditText input;
     Handler handler;
+    Map<String, String> map = new HashMap<String,String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rmbchange);
-
-        dollar_rate = 0.1547f;
-        euro_rate = 0.132f;
-        jpy_rate = 17.1234f;
-
-
-        Shareedsave();
-        result = findViewById(R.id.ResultofChange);
-        input = findViewById(R.id.inputRMB);
-
         handler = new Handler(){
             @Override
             public void handleMessage(@NonNull Message msg) {
                 Log.i(TAG, "handleMessage: ");
                 if(msg.what==5){
-                    String str =(String)msg.obj;
-                    Log.i(TAG, "handleMessage: msg="+str);
-                    result.setText(str);
+                    Bundle bundle = msg.getData();
+                    String dollar = bundle.getString("dollar");
+                    String euro = bundle.getString("euro");
+                    String jpny = bundle.getString("jpny");
+                    dollar_rate = 100/Float.parseFloat(dollar);
+                    euro_rate = 100/Float.parseFloat(euro);
+                    jpy_rate = 100/Float.parseFloat(jpny);
                 }
                 super.handleMessage(msg);
             }
@@ -66,6 +68,27 @@ public class RMBchange extends AppCompatActivity implements Runnable{
         Thread thread = new Thread(this);
         thread.start();
 
+//        dollar_rate = 0.1547f;
+//        euro_rate = 0.132f;
+//        jpy_rate = 17.1234f;
+//        dollar_rate = 100/Float.parseFloat(map.get("美元"));
+//        euro_rate = 100/Float.parseFloat(map.get("欧元"));
+//        jpy_rate = 100/Float.parseFloat(map.get("日元"));
+//        Log.i(TAG, "onCreate: dollar:"+map.get("美元"));
+
+        //WritetoRate();
+        Shareedsave();
+        result = findViewById(R.id.ResultofChange);
+        input = findViewById(R.id.inputRMB);
+    }
+
+    private void WritetoRate() {
+        SharedPreferences sp = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putFloat("dollar_rate",dollar_rate);
+        editor.putFloat("euro_rate",euro_rate);
+        editor.putFloat("jpn_rate",jpy_rate);
+        editor.apply();
     }
 
     private void Shareedsave() {
@@ -146,19 +169,52 @@ public class RMBchange extends AppCompatActivity implements Runnable{
             e.printStackTrace();
         }
 
-        URL url = null;
+        /*URL url = null;
+        Connecttonet();*/
+
+        //JSOUP
+        try {
+            Document doc = Jsoup.connect("http://www.usd-cny.com/").get();
+            Log.i(TAG, "run: tittle="+doc.title());
+            Elements tables = doc.getElementsByTag("table");
+            //获取第一张表
+            Element firsttable = tables.first();
+            //Log.i(TAG, "run: firsttable:"+firsttable);
+//            Elements ths = firsttable.getElementsByTag("th");
+//            for(Element th :ths){
+////                Log.i(TAG, "run: th="+th);
+////                Log.i(TAG, "run: th.html:"+th.html());      //显示<b>xxxx</b>
+////                Log.i(TAG, "run: th.text:"+th.text());      //显示xxxx
+//            }
+//            Element th2 = ths.get(1);
+//            Log.i(TAG, "run: th2:"+th2);
+            Elements tds = firsttable.getElementsByTag("td");
+            for(int i=0;i<tds.size();i+=5){
+//                Log.i(TAG, "run: td:"+td.text());
+                Element td1 = tds.get(i);
+                Element td2 = tds.get(i+1);
+                map.put(td1.text(),td2.text());
+//                Log.i(TAG, "run: map="+map);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Message msg = null;
-
-        Connecttonet();
-
         try {
             msg = handler.obtainMessage(5);
+            Bundle bdl = new Bundle();
+            bdl.putString("dollar",map.get("美元"));
+            bdl.putString("euro",map.get("欧元"));
+            bdl.putString("jpny",map.get("日元"));
+            msg.setData(bdl);
+            handler.sendMessage(msg);
+            Log.i(TAG, "run: run:消息已经发送");
+            RMBchange runnable = new RMBchange();
+            handler.postDelayed(runnable, 24*60*60*1000);//每两秒执行一次runnable.
         } catch (Exception e) {
             e.printStackTrace();
         }
-        msg.obj = "Hello from run";
-        handler.sendMessage(msg);
-        Log.i(TAG, "run: run:消息已经发送");
     }
 
     private void Connecttonet() {
@@ -210,5 +266,17 @@ public class RMBchange extends AppCompatActivity implements Runnable{
             e.printStackTrace();
         }
         return sb.toString();
+    }
+
+    @Override//保存
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putFloat("Result",result1);
+    }
+
+    @Override//还原
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        result1 = savedInstanceState.getFloat("Result",0.0f);
     }
 }
