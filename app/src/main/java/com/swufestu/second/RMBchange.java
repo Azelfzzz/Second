@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -31,7 +32,9 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RMBchange extends AppCompatActivity implements Runnable{
@@ -44,11 +47,17 @@ public class RMBchange extends AppCompatActivity implements Runnable{
     EditText input;
     Handler handler;
     Map<String, String> map = new HashMap<String,String>();
+    List<String> retlist=new ArrayList<String>();
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rmbchange);
-        handler = new Handler(){
+        handler = new Handler(Looper.myLooper()){
             @Override
             public void handleMessage(@NonNull Message msg) {
                 Log.i(TAG, "handleMessage: ");
@@ -65,6 +74,7 @@ public class RMBchange extends AppCompatActivity implements Runnable{
             }
         };
 
+        //MyTast task = new MyTast();
         Thread thread = new Thread(this);
         thread.start();
 
@@ -169,9 +179,6 @@ public class RMBchange extends AppCompatActivity implements Runnable{
             e.printStackTrace();
         }
 
-        /*URL url = null;
-        Connecttonet();*/
-
         //JSOUP
         try {
             Document doc = Jsoup.connect("http://www.usd-cny.com/").get();
@@ -216,6 +223,8 @@ public class RMBchange extends AppCompatActivity implements Runnable{
             e.printStackTrace();
         }
     }
+
+
 
     private void Connecttonet() {
         URL url;
